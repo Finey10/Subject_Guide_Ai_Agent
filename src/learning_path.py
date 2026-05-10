@@ -1,7 +1,5 @@
-import os
-from dotenv import load_dotenv
-from google import genai
 from src.gemini_client import safe_generate
+
 STAGES = ["Theory", "Examples", "Practice", "Assessment"]
 
 
@@ -55,7 +53,6 @@ SOURCES:
 def generate_learning_stage(topic: str, stage: str, chunks: list) -> str:
     prompt = build_stage_prompt(topic, stage, chunks)
     return safe_generate(prompt)
-    
 
 
 def get_all_stages(topic: str, chunks: list) -> dict:
