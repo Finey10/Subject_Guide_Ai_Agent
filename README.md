@@ -161,7 +161,6 @@ sentence-transformers==2.7.0
 langchain-text-splitters
 numpy
 openai
-anthropic
 
 ---
 
