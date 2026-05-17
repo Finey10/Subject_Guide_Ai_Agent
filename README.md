@@ -43,7 +43,44 @@ An AI-powered comprehensive academic assistant that helps students understand su
 - Multi-LLM fallback: Gemini primary, OpenAI GPT-4o-mini backup
 
 ---
+🏗️ Architecture Documentation
 
+### Multi-Source RAG Pipeline
+Student uploads PDF/DOCX/PPTX
+↓
+File Validation (format, size, content)
+↓
+Text Extraction (PyPDF2, python-docx, python-pptx)
+↓
+Recursive Text Chunking (LangChain, chunk_size=1000, overlap=150)
+↓
+Semantic Embedding (sentence-transformers: all-MiniLM-L6-v2)
+↓
+FAISS Vector Index (IndexFlatL2)
+↓
+User Query → Validate → Intent Router
+↓
+Semantic Search + Keyword Reranking (Top 5 chunks)
+↓
+Specialized Tool (Topic / Solver / Learning / CrossRef / Exam / Quiz)
+↓
+Prompt Engineering → Gemini 2.5 Flash
+↓ (if quota exhausted)
+OpenAI GPT-4o-mini (fallback)
+↓
+Structured Academic Answer + Export
+
+### Academic Content Processing Flow
+- **Chunking Strategy**: RecursiveCharacterTextSplitter with 1000 char chunks and 150 char overlap preserves context across chunk boundaries
+- **Retrieval Strategy**: FAISS L2 similarity search combined with keyword overlap scoring for academic term matching
+- **Category Filtering**: Metadata-based filtering allows targeted search within Textbook, Notes, Question Paper, or Lab Material
+- **Intent Detection**: Keyword scoring across 4 intent categories routes queries to specialized prompts
+
+### Privacy and Content Protection
+- All processing happens locally — files never leave the application
+- API calls send only text chunks, not full documents
+- No user data is stored permanently — session-based only
+- API keys stored in environment variables, never in code
 ## 🛠️ Tech Stack
 
 | Layer | Technology |
@@ -166,7 +203,7 @@ openai
 
 ## 🚀 Deployment
 
-Live demo: [Your Streamlit Cloud URL here]
+Live demo: https://subjectguideaiagentgit-s3cdhfu95hvnvuw83ydghr.streamlit.app/
 
 Deployed on Streamlit Cloud with API keys configured in Streamlit Secrets.
 
