@@ -97,6 +97,8 @@ Structured Academic Answer + Export
 ---
 
 ## 📦 Project Structure
+
+`````
 Subject_Guide_Ai_Agent/
 │
 ├── app.py                        # Main Streamlit application
@@ -126,7 +128,7 @@ Subject_Guide_Ai_Agent/
 │   └── exporter.py               # Export answers, plans, results as text
 │
 └── README.md
----
+`````
 
 ## ▶️ How to Run
 
